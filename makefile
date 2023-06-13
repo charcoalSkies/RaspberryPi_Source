@@ -19,7 +19,7 @@ CC_SRC = $(wildcard *.cc) # 현재 디렉토리에서 .cc 파일을 모두 찾�
 SRC = $(C_SRC) $(CPP_SRC) $(CC_SRC) # 모든 소스 파일을 SRC 변수에 저장
 OBJ = $(C_SRC:.c=.o) $(CC_SRC:.cc=.o) $(CPP_SRC:.cpp=.o) # 소스 파일들을 컴파일하여 오브젝트 파일로 만들어 OBJ 변수에 저장
 
-defualt : $(EXE) clean # default 타겟으로 EXE 파일과 clean 타겟을 순차적으로 빌드
+defualt : $(EXE)  # default 타겟으로 EXE 파일과 clean 타겟을 순차적으로 빌드
 
 all : $(EXE) # all 타겟으로 EXE 파일을 빌드
 
@@ -27,5 +27,6 @@ $(EXE) : $(OBJ) # EXE 파일을 빌드하기 위해 OBJ 파일들이 필요, gcc
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS) 
 	strip $@ 
 	
-clean: # 현재 디렉토리에서 모든 오브젝트 파일을 삭제
-	rm *.o 
+clean:
+    rm -f *.o $(EXE)
+
