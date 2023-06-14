@@ -1,4 +1,3 @@
-
 #include "sensor.h"
 
 // LED를 제어하는 함수
@@ -7,10 +6,13 @@ void led(uint8_t LED, getCommand getcmd) { digitalWrite(LED_PIN, LED); }
 // 부저를 제어하는 함수
 void buzzer(uint16_t Hertz, getCommand getcmd) { softToneWrite(BUZZER_PIN, Hertz); }
 
-// 모터를 제어하는 함수
-void motor(uint16_t pwm, uint8_t pos)
+void motor_init(uint16_t pwm)
 {
 	softPwmCreate(MOTOR_PIN, 0, pwm); // 모터 핀을 설정하고 PWM 신호를 생성한다.
+}
+// 모터를 제어하는 함수
+void motor(uint8_t pos)
+{
 	softPwmWrite(MOTOR_PIN, pos);	  // 모터 핀에 PWM 신호를 출력한다.
 }
 

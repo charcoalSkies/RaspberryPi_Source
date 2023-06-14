@@ -2,18 +2,16 @@
 
 int main(int args, char** argv) 
 {
-    getCommand getcmd = { 0, };
-    sensors sensor = { 0, };
-    connection(&getcmd);
-    init_sensor();
-
+    getCommand getcmd = { 0, }; // getCommand 구조체 변수 getcmd 선언 및 초기화
+    sensors sensor = { 0, };    // sensors 구조체 변수 sensor 선언 및 초기화
+    connection(&getcmd);        // Socket 연결 대기
+    init_sensor();              // 센서 초기화
     uint8_t led_change = 0x00;
     while (true) 
     {
-        json_object* data = json_object_object_get(getcmd.rootObj, "data");
-        // printf("%s", getcmd.command);
+        json_object* data = json_object_object_get(getcmd.rootObj, "data"); // getcmd.rootObj에서 "data" 키에 해당하는 json_object를 가져옴
+        sensor = json_parser(data); // 가져온 json_object를 파싱하여 sensor 변수에 저장함
 
-        sensor = json_parser(data);
         if (strcmps(sensor.led, "True") == 0) 
         {  
             led_change = ~led_change;            // led_change 값을 반전시킨다.
@@ -43,7 +41,7 @@ int main(int args, char** argv)
                                              // 출력한다.
             response("Motor Move!", &getcmd);  // "Motor Move!" 응답을 보낸다.
             for (int i = 0; i < atoi(sensor.motor_angle); i++) {
-                motor(200, i);
+                motor(i);
             }  // motor_angle 값만큼 모터를 회전시킨다.
         }
 
@@ -86,6 +84,8 @@ void init_sensor()
     lcd_init();                  // LCD를 초기화한다.
 
     pinMode(MOTOR_PIN, OUTPUT);    // MOTOR_PIN을 출력으로 설정한다.
+    motor_init(200);
+
     digitalWrite(MOTOR_PIN, LOW);  // MOTOR_PIN을 LOW로 설정한다.
 
     pinMode(LIGHTSEN_OUT, INPUT);  // LIGHTSEN_OUT을 입력으로 설정한다.

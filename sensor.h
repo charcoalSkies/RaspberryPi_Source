@@ -40,7 +40,8 @@ void led(uint8_t LED, getCommand getcmd);
 void buzzer(uint16_t Hertz, getCommand getcmd);
 
 // 모터 제어 함수 선언
-void motor(uint16_t pwm, uint8_t pos);
+void motor_init(uint16_t pwm);
+void motor(uint8_t pos);
 
 // 빛 감지 센서 함수 선언
 char* light_sensor();
