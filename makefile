@@ -21,11 +21,11 @@ OBJ = $(C_SRC:.c=.o) $(CC_SRC:.cc=.o) $(CPP_SRC:.cpp=.o) # 소스 파일들을 �
 
 defualt : $(EXE) clean # default 타겟으로 EXE 파일과 clean 타겟을 순차적으로 빌드
 
- all : $(EXE) # all 타겟으로 EXE 파일을 빌드
+all : $(EXE) # all 타겟으로 EXE 파일을 빌드
 
- $(EXE) : $(OBJ) # EXE 파일을 빌드하기 위해 OBJ 파일들이 필요, gcc 컴파일러를 사용하여 EXE 파일을 빌드, 빌드된 EXE 파일을 strip하여 파일 크기를 줄임
- 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS) 
- 	strip $@ 
+$(EXE) : $(OBJ) # EXE 파일을 빌드하기 위해 OBJ 파일들이 필요, gcc 컴파일러를 사용하여 EXE 파일을 빌드, 빌드된 EXE 파일을 strip하여 파일 크기를 줄임
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS) 
+	strip $@ 
 
- clean: # 현재 디렉토리에서 모든 오브젝트 파일을 삭제
- 	rm *.o 
+clean: # 현재 디렉토리에서 모든 오브젝트 파일을 삭제
+	rm *.o 
